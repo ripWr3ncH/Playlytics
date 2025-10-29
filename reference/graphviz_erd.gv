@@ -1,0 +1,364 @@
+// ==============================================================
+// PLAYLYTICS - FOOTBALL MATCH ANALYTICS SYSTEM
+// Entity-Relationship Diagram (Academic/Professional Version)
+// ==============================================================
+// Purpose: Database schema visualization for academic documentation
+// Author: Database Design Team
+// Date: October 2025
+// Tools: GraphViz DOT Language
+// ==============================================================
+// USAGE:
+//   Command Line: dot -Tpng graphviz_erd.gv -o diagram.png
+//   Online Tool:  https://dreampuf.github.io/GraphvizOnline/
+// ==============================================================
+
+digraph PlaylyticsDatabaseERD {
+    // ==================== GRAPH CONFIGURATION ====================
+    graph [
+        label="\n\nPLAYLYTICS DATABASE SCHEMA\nFootball Match Analytics System\n"
+        labelloc="t"
+        fontname="Helvetica Bold"
+        fontsize=16
+        rankdir=TB
+        bgcolor="white"
+        pad="0.5"
+        nodesep=0.8
+        ranksep=1.2
+        splines=ortho
+    ];
+    
+    node [
+        shape=plaintext
+        fontname="Helvetica"
+        fontsize=10
+    ];
+    
+    edge [
+        fontname="Helvetica"
+        fontsize=9
+        color="#333333"
+        penwidth=1.5
+    ];
+
+    // ==================== ENTITY DEFINITIONS ====================
+
+    // Entity: USERS
+    users [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>USERS</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">email</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">password</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">is_admin</TD><TD ALIGN="LEFT"><I>BOOLEAN</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // Entity: LEAGUES
+    leagues [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>LEAGUES</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">slug</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">country</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">logo</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">season</TD><TD ALIGN="LEFT"><I>VARCHAR(50)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">is_active</TD><TD ALIGN="LEFT"><I>BOOLEAN</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // Entity: TEAMS
+    teams [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>TEAMS</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">slug</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>league_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">city</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">founded</TD><TD ALIGN="LEFT"><I>YEAR</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">logo</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">description</TD><TD ALIGN="LEFT"><I>TEXT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // Entity: PLAYERS
+    players [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>PLAYERS</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">name</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">slug</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>team_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">position</TD><TD ALIGN="LEFT"><I>VARCHAR(100)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">age</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">nationality</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // Entity: FOOTBALL_MATCHES
+    football_matches [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>FOOTBALL_MATCHES</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>league_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>home_team_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>away_team_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">match_date</TD><TD ALIGN="LEFT"><I>DATETIME</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">home_score</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">away_score</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">status</TD><TD ALIGN="LEFT"><I>ENUM</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">minute</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">venue</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">attendance</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">referee</TD><TD ALIGN="LEFT"><I>VARCHAR(255)</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">matchweek</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">events</TD><TD ALIGN="LEFT"><I>JSON</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // Entity: PLAYER_STATS
+    player_stats [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="3" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="12"><B>PLAYER_STATS</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>match_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT"><B>player_id</B></TD>
+                <TD ALIGN="LEFT"><I>INT</I></TD>
+            </TR>
+            <TR><TD></TD><TD ALIGN="LEFT">goals</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">assists</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">minutes_played</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">yellow_cards</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">red_cards</TD><TD ALIGN="LEFT"><I>INT</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+            <TR><TD></TD><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT"><I>TIMESTAMP</I></TD></TR>
+        </TABLE>
+    >];
+
+    // ==================== RELATIONSHIPS ====================
+
+    // Relationship: LEAGUES → TEAMS
+    leagues -> teams [
+        label="  has  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#1976D2"
+        penwidth=2
+    ];
+
+    // Relationship: TEAMS → PLAYERS
+    teams -> players [
+        label="  employs  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#1976D2"
+        penwidth=2
+    ];
+
+    // Relationship: LEAGUES → FOOTBALL_MATCHES
+    leagues -> football_matches [
+        label="  organizes  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#1976D2"
+        penwidth=2
+    ];
+
+    // Relationship: TEAMS → FOOTBALL_MATCHES (home_team)
+    teams -> football_matches [
+        label="  plays home  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#F57C00"
+        penwidth=2
+    ];
+
+    // Relationship: TEAMS → FOOTBALL_MATCHES (away_team)
+    teams -> football_matches [
+        label="  plays away  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#D32F2F"
+        penwidth=2
+    ];
+
+    // Relationship: FOOTBALL_MATCHES → PLAYER_STATS
+    football_matches -> player_stats [
+        label="  records  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#1976D2"
+        penwidth=2
+    ];
+
+    // Relationship: PLAYERS → PLAYER_STATS
+    players -> player_stats [
+        label="  achieves  "
+        taillabel=" 1 "
+        headlabel=" N "
+        arrowhead=crow
+        arrowtail=none
+        color="#1976D2"
+        penwidth=2
+    ];
+
+    // ==================== LAYOUT HIERARCHY ====================
+    
+    {rank=min; users;}
+    {rank=same; leagues;}
+    {rank=same; teams;}
+    {rank=same; players; football_matches;}
+    {rank=same; player_stats;}
+
+    // ==================== LEGEND ====================
+    
+    legend [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#FFFFFF">
+            <TR><TD COLSPAN="2" BGCOLOR="#E8EAF6" ALIGN="CENTER">
+                <FONT POINT-SIZE="11"><B>LEGEND</B></FONT>
+            </TD></TR>
+            <TR>
+                <TD BGCOLOR="#FFF9C4" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>PK</B></FONT></TD>
+                <TD ALIGN="LEFT">Primary Key</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFCDD2" ALIGN="CENTER"><FONT POINT-SIZE="9"><B>FK</B></FONT></TD>
+                <TD ALIGN="LEFT">Foreign Key</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER"><FONT COLOR="#1976D2"><B>━━</B></FONT></TD>
+                <TD ALIGN="LEFT">Standard Relationship</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER"><FONT COLOR="#F57C00"><B>━━</B></FONT></TD>
+                <TD ALIGN="LEFT">Home Team Reference</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER"><FONT COLOR="#D32F2F"><B>━━</B></FONT></TD>
+                <TD ALIGN="LEFT">Away Team Reference</TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER"><B>1:N</B></TD>
+                <TD ALIGN="LEFT">One-to-Many Cardinality</TD>
+            </TR>
+        </TABLE>
+    >];
+
+    {rank=max; legend;}
+
+    // ==================== METADATA ====================
+    
+    metadata [label=<
+        <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8">Database: playlytics_db</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8">DBMS: MySQL 5.7+</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8">Entities: 6 tables</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8">Relationships: 7 foreign keys</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8">Cascade Rules: ON DELETE CASCADE</FONT></TD></TR>
+        </TABLE>
+    >];
+
+    {rank=max; metadata;}
+}
+
+// ==============================================================
+// EXPORT INSTRUCTIONS
+// ==============================================================
+// High-Resolution PNG (300 DPI):
+//   dot -Tpng -Gdpi=300 graphviz_erd.gv -o playlytics_erd.png
+//
+// Scalable Vector (Academic Papers):
+//   dot -Tsvg graphviz_erd.gv -o playlytics_erd.svg
+//
+// PDF (Presentations):
+//   dot -Tpdf graphviz_erd.gv -o playlytics_erd.pdf
+//
+// PostScript (Publications):
+//   dot -Tps graphviz_erd.gv -o playlytics_erd.ps
+// ==============================================================

@@ -1,0 +1,23 @@
+// Simplified test version to verify GraphViz is working
+digraph TestERD {
+    graph [rankdir=TB bgcolor="white"];
+    node [shape=plaintext fontname="Helvetica"];
+    
+    users [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6">
+            <TR><TD COLSPAN="2" BGCOLOR="#E8EAF6"><B>USERS</B></TD></TR>
+            <TR><TD BGCOLOR="#FFF9C4"><B>PK</B></TD><TD>id</TD></TR>
+            <TR><TD></TD><TD>name</TD></TR>
+        </TABLE>
+    >];
+    
+    teams [label=<
+        <TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6">
+            <TR><TD COLSPAN="2" BGCOLOR="#E8EAF6"><B>TEAMS</B></TD></TR>
+            <TR><TD BGCOLOR="#FFF9C4"><B>PK</B></TD><TD>id</TD></TR>
+            <TR><TD></TD><TD>name</TD></TR>
+        </TABLE>
+    >];
+    
+    users -> teams [label="manages"];
+}

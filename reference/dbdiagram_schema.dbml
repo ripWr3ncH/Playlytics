@@ -1,0 +1,228 @@
+// ==============================================================
+// PLAYLYTICS - FOOTBALL MATCH ANALYTICS SYSTEM
+// Database Schema for dbdiagram.io
+// ==============================================================
+// Usage: Copy this code and paste it at https://dbdiagram.io/d
+// ==============================================================
+
+Project Playlytics {
+  database_type: 'MySQL'
+  Note: 'Football Match Analytics System - Complete Database Schema'
+}
+
+// ==============================================================
+// TABLE DEFINITIONS
+// ==============================================================
+
+Table users {
+  id int [pk, increment, note: 'Primary Key']
+  name varchar(255) [not null, note: 'User full name']
+  email varchar(255) [not null, unique, note: 'User email address']
+  password varchar(255) [not null, note: 'Hashed password']
+  is_admin boolean [default: false, note: 'Admin access flag']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`, note: 'Record creation time']
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`, note: 'Last update time']
+  
+  indexes {
+    email [unique, name: 'idx_users_email']
+  }
+  
+  Note: 'Stores user accounts and authentication details'
+}
+
+Table leagues {
+  id int [pk, increment, note: 'Primary Key']
+  name varchar(255) [not null, note: 'League name (e.g., Premier League)']
+  slug varchar(255) [unique, note: 'URL-friendly identifier']
+  country varchar(255) [note: 'Country where league operates']
+  logo varchar(255) [note: 'Path to league logo image']
+  season varchar(50) [not null, note: 'Season year (e.g., 2023-24)']
+  is_active boolean [default: true, note: 'Active/Inactive status']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    slug [unique, name: 'idx_leagues_slug']
+    season [name: 'idx_leagues_season']
+  }
+  
+  Note: 'Football leagues/competitions (Premier League, La Liga, etc.)'
+}
+
+Table teams {
+  id int [pk, increment, note: 'Primary Key']
+  name varchar(255) [not null, note: 'Team name']
+  slug varchar(255) [unique, note: 'URL-friendly identifier']
+  league_id int [not null, note: 'Associated league']
+  city varchar(255) [note: 'Home city']
+  founded year [note: 'Year established']
+  logo varchar(255) [note: 'Path to team logo']
+  description text [note: 'Team details/history']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    slug [unique, name: 'idx_teams_slug']
+    league_id [name: 'idx_teams_league']
+  }
+  
+  Note: 'Football teams/clubs participating in leagues'
+}
+
+Table players {
+  id int [pk, increment, note: 'Primary Key']
+  name varchar(255) [not null, note: 'Player full name']
+  slug varchar(255) [unique, note: 'URL-friendly identifier']
+  team_id int [not null, note: 'Current team']
+  position varchar(100) [note: 'Playing position (Forward, Midfielder, etc.)']
+  age int [note: 'Player age']
+  nationality varchar(255) [note: 'Player nationality']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    slug [unique, name: 'idx_players_slug']
+    team_id [name: 'idx_players_team']
+    position [name: 'idx_players_position']
+  }
+  
+  Note: 'Individual players with team assignments'
+}
+
+Table football_matches {
+  id int [pk, increment, note: 'Primary Key']
+  league_id int [not null, note: 'League/competition']
+  home_team_id int [not null, note: 'Home team']
+  away_team_id int [not null, note: 'Away team']
+  match_date datetime [note: 'Match date and time']
+  home_score int [default: 0, note: 'Home team goals']
+  away_score int [default: 0, note: 'Away team goals']
+  status varchar(20) [not null, default: 'scheduled', note: 'Match status: scheduled, live, finished, postponed, cancelled']
+  minute int [note: 'Current match minute (for live matches)']
+  venue varchar(255) [note: 'Stadium/venue name']
+  attendance int [note: 'Number of spectators']
+  referee varchar(255) [note: 'Match referee name']
+  matchweek int [note: 'League matchweek number']
+  events json [note: 'Match events (goals, cards, substitutions)']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    status [name: 'idx_matches_status']
+    match_date [name: 'idx_matches_date']
+    league_id [name: 'idx_matches_league']
+    (home_team_id, away_team_id) [name: 'idx_matches_teams']
+  }
+  
+  Note: 'Football match records with scores and details'
+}
+
+Table player_stats {
+  id int [pk, increment, note: 'Primary Key']
+  match_id int [not null, note: 'Match reference']
+  player_id int [not null, note: 'Player reference']
+  goals int [default: 0, note: 'Goals scored in match']
+  assists int [default: 0, note: 'Assists made in match']
+  minutes_played int [default: 0, note: 'Minutes played (0-90+)']
+  yellow_cards int [default: 0, note: 'Yellow cards received']
+  red_cards int [default: 0, note: 'Red cards received']
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  updated_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    match_id [name: 'idx_stats_match']
+    player_id [name: 'idx_stats_player']
+    (match_id, player_id) [unique, name: 'idx_stats_match_player']
+  }
+  
+  Note: 'Individual player performance statistics per match'
+}
+
+// ==============================================================
+// RELATIONSHIPS (Foreign Keys)
+// ==============================================================
+
+Ref: teams.league_id > leagues.id [delete: cascade, update: cascade]
+Ref: players.team_id > teams.id [delete: cascade, update: cascade]
+Ref: football_matches.league_id > leagues.id [delete: cascade, update: cascade]
+Ref: football_matches.home_team_id > teams.id [delete: cascade, update: cascade]
+Ref: football_matches.away_team_id > teams.id [delete: cascade, update: cascade]
+Ref: player_stats.match_id > football_matches.id [delete: cascade, update: cascade]
+Ref: player_stats.player_id > players.id [delete: cascade, update: cascade]
+
+// ==============================================================
+// TABLE GROUPS (Visual Organization)
+// ==============================================================
+
+TableGroup Authentication {
+  users
+}
+
+TableGroup Core_Entities {
+  leagues
+  teams
+  players
+}
+
+TableGroup Match_Management {
+  football_matches
+  player_stats
+}
+
+// ==============================================================
+// NOTES & DOCUMENTATION
+// ==============================================================
+
+Note relationships {
+  '''
+  # Relationship Summary
+  
+  ## One-to-Many Relationships:
+  - One LEAGUE has many TEAMS
+  - One TEAM has many PLAYERS
+  - One LEAGUE has many MATCHES
+  - One MATCH has many PLAYER_STATS
+  - One PLAYER has many PLAYER_STATS
+  
+  ## Many-to-Many Relationships:
+  - TEAMS ↔ MATCHES (via home_team_id and away_team_id)
+  - PLAYERS ↔ MATCHES (via player_stats junction table)
+  
+  ## Cascade Rules:
+  - All foreign keys use CASCADE on DELETE and UPDATE
+  - Deleting a league removes all its teams, matches, and stats
+  - Deleting a team removes all its players and match records
+  
+  ## Independent Tables:
+  - USERS table is standalone (used only for admin authentication)
+  '''
+}
+
+Note database_info {
+  '''
+  # Database Statistics (Example)
+  
+  - Users: Admin accounts for system management
+  - Leagues: 5+ major football leagues
+  - Teams: 100+ football clubs
+  - Players: 2,000+ registered players
+  - Matches: 1,000+ match records
+  - Player Stats: 20,000+ performance records
+  
+  # Query Performance:
+  - Indexes on slug fields for fast lookups
+  - Composite indexes on match teams
+  - Status and date indexes for filtering
+  '''
+}
+
+// ==============================================================
+// COLOR CODING (Optional - for visual clarity)
+// ==============================================================
+// TableGroup.Authentication [headercolor: #001C29]
+// TableGroup.Core_Entities [headercolor: #194054]
+// TableGroup.Match_Management [headercolor: #0E2F3F]
+
+// ==============================================================
+// END OF SCHEMA
+// ==============================================================

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlytics - Quick Start Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        h2 {
+            color: #1e40af;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #2563eb;
+        }
+        h3 {
+            color: #2563eb;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .tagline {
+            text-align: center;
+            color: #64748b;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .step {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .step-number {
+            background: #2563eb;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .code {
+            background: #1e293b;
+            color: #9cdcfe;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37,99,235,0.3);
+        }
+        .btn-success {
+            background: #10b981;
+        }
+        .btn-success:hover {
+            background: #059669;
+        }
+        .links {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .feature-card h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .alert {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+        ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ Playlytics</h1>
+        <p class="tagline">Football Match Analytics & MySQL Query Showcase</p>
+
+        <div class="alert success">
+            <strong>✅ Installation Complete!</strong> Your project files are ready. Follow the steps below to set up the database and start exploring.
+        </div>
+
+        <h2>🚀 Quick Start Guide</h2>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Start XAMPP Services</h3>
+            <p>Open XAMPP Control Panel and start:</p>
+            <ul>
+                <li>✅ Apache</li>
+                <li>✅ MySQL</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Install Database</h3>
+            <p>Click the button below to create the database and tables:</p>
+            <div class="links">
+                <a href="setup/install.php" class="btn">🗄️ Install Database</a>
+            </div>
+            <p>This will create the <code>playlytics_db</code> database with all necessary tables.</p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Seed Dummy Data</h3>
+            <p>Click the button below to populate the database with sample data:</p>
+            <div class="links">
+                <a href="setup/seed_data.php" class="btn btn-success">🌱 Seed Data</a>
+            </div>
+            <p>This will add:</p>
+            <ul>
+                <li>4 Football Leagues (Premier League, La Liga, etc.)</li>
+                <li>16 Teams with real names</li>
+                <li>30+ Players</li>
+                <li>14 Matches (live, finished, scheduled)</li>
+                <li>Player statistics</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">4</span>Explore the Application</h3>
+            <div class="links">
+                <a href="index.php" class="btn">🏠 Home Page</a>
+                <a href="pages/leagues.php" class="btn">🏆 Leagues</a>
+                <a href="pages/players.php" class="btn">👤 Players</a>
+                <a href="pages/query_executor.php" class="btn">💻 SQL Executor</a>
+                <a href="admin/index.php" class="btn">⚙️ Admin Panel</a>
+            </div>
+        </div>
+
+        <h2>✨ Key Features</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>📊 SQL Viewer</h4>
+                <p>See all SQL queries executed on each page</p>
+            </div>
+            <div class="feature-card">
+                <h4>💻 Query Executor</h4>
+                <p>Write and run custom SQL queries</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔴 Live Matches</h4>
+                <p>Real-time match tracking with status</p>
+            </div>
+            <div class="feature-card">
+                <h4>⚙️ Admin Panel</h4>
+                <p>Full CRUD operations for all entities</p>
+            </div>
+        </div>
+
+        <h2>🎯 What You'll Learn</h2>
+        <ul>
+            <li><strong>Basic SQL:</strong> SELECT, INSERT, UPDATE, DELETE</li>
+            <li><strong>JOINs:</strong> INNER JOIN, LEFT JOIN with multiple tables</li>
+            <li><strong>Aggregations:</strong> COUNT, SUM, AVG, MIN, MAX</li>
+            <li><strong>Advanced:</strong> GROUP BY, HAVING, Subqueries, UNION</li>
+            <li><strong>Complex Queries:</strong> CASE statements, nested queries</li>
+            <li><strong>Relationships:</strong> Foreign keys, cascading deletes</li>
+        </ul>
+
+        <h2>🔑 Admin Access</h2>
+        <div class="step">
+            <p><strong>Email:</strong> admin@playlytics.com</p>
+            <p><strong>Password:</strong> admin123</p>
+            <div class="alert">
+                ⚠️ <strong>Note:</strong> Change these credentials in production!
+            </div>
+        </div>
+
+        <h2>📚 Project Structure</h2>
+        <div class="code">
+Playlytics/
+├── admin/          # Admin panel (CRUD operations)
+├── pages/          # Public pages (leagues, players, SQL executor)
+├── assets/         # CSS and JavaScript files
+├── config/         # Database configuration
+├── includes/       # Header & footer templates
+├── setup/          # Installation & seeding scripts
+├── reference/      # Database schema & documentation
+└── index.php       # Home page
+        </div>
+
+        <h2>🎓 SQL Query Examples Available</h2>
+        <ul>
+            <li>Basic SELECT with WHERE and ORDER BY</li>
+            <li>Multiple table JOINs</li>
+            <li>COUNT with GROUP BY</li>
+            <li>Subqueries for filtering</li>
+            <li>UNION operations</li>
+            <li>Complex aggregate calculations</li>
+            <li>League standings algorithm</li>
+            <li>Player statistics summaries</li>
+        </ul>
+
+        <h2>💡 Tips</h2>
+        <div class="alert">
+            <ul style="margin-left: 1rem;">
+                <li>Click <strong>"📊 View SQL Queries"</strong> button on any page to see executed queries</li>
+                <li>Use the <strong>SQL Executor</strong> to practice writing queries</li>
+                <li>Explore the <strong>Admin Panel</strong> to manage data</li>
+                <li>Check <strong>README.md</strong> for detailed documentation</li>
+            </ul>
+        </div>
+
+        <h2>🐛 Troubleshooting</h2>
+        <div class="step">
+            <h3>Database Connection Error?</h3>
+            <ul>
+                <li>Ensure MySQL is running in XAMPP</li>
+                <li>Check credentials in <code>config/config.php</code></li>
+            </ul>
+
+            <h3>No Data Showing?</h3>
+            <ul>
+                <li>Run the seed data script (Step 3)</li>
+                <li>Check if tables exist in phpMyAdmin</li>
+            </ul>
+        </div>
+
+        <div class="links" style="margin-top: 3rem;">
+            <h3>Ready to Start? 🚀</h3>
+            <a href="setup/install.php" class="btn">🗄️ Step 2: Install Database</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0; color: #64748b;">
+            <p>Built with ❤️ using HTML, CSS, JavaScript, PHP & MySQL</p>
+            <p>© 2024 Playlytics - Educational Project</p>
+        </div>
+    </div>
+</body>
+</html>
